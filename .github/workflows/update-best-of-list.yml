@@ -29,6 +29,18 @@ jobs:
         name: set-version-via-date
         run: echo "VERSION=$(date '+%Y.%m.%d')" >> $GITHUB_ENV
       - uses: actions/checkout@v6
+      - name: close-stale-update-prs
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Older update PRs are superseded by this run (README.md and latest-changes.md are
+          # fully regenerated), so close them to avoid merge conflicts.
+          gh pr list --state open --json number,headRefName \
+            --jq '.[] | select(.headRefName | startswith("${{ env.BRANCH_PREFIX }}")) | .number' \
+          | while read -r pr; do
+              gh pr close "$pr" --delete-branch --comment "Superseded by a newer best-of update." || true
+            done
       - name: check-version-tag
         shell: bash
         run: |
@@ -47,12 +59,31 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # Uses GH_API_TOKEN (classic PAT without scopes) if set, otherwise the Actions token.
       - name: update-best-of-list
         uses: best-of-lists/best-of-update-action@v0.8.5
         with:
           libraries_key: ${{ secrets.LIBRARIES_KEY }}
-          github_key: ${{ secrets.GH_API_TOKEN || secrets.GITHUB_TOKEN }}
+          # Not secrets.GITHUB_TOKEN: the Actions token cannot resolve other repositories through
+          # the GitHub GraphQL API, which is where stars, descriptions and commit counts come from.
+          # GH_API_TOKEN is a classic PAT with no scopes.
+          github_key: ${{ secrets.GH_API_TOKEN }}
+      - name: check-generation-sanity
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import csv, glob, sys
+
+          # commit_count is only set by the GraphQL query, so it drops to ~0 if that fetch fails.
+          files = sorted(glob.glob("history/*_projects.csv"))
+          if not files:
+              sys.exit("No history/*_projects.csv was written - generation did not complete.")
+          path = files[-1]
+          rows = [r for r in csv.DictReader(open(path)) if r["github_id"]]
+          filled = sum(1 for r in rows if r["commit_count"])
+          print(f"{path}: {filled}/{len(rows)} GitHub projects have commit_count")
+          if filled < 0.5 * len(rows):
+              sys.exit("GitHub GraphQL metadata fetch looks broken - refusing to publish.")
+          PY
       - name: push-update
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
@@ -67,8 +98,6 @@ jobs:
         run: |
           # Stops script execution if a command has an error
           set -e
-          curl -fsSL https://github.com/github/hub/raw/master/script/get | bash -s 2.14.2
-          bin/hub pull-request -b ${{ env.DEFAULT_BRANCH }} -h ${{ env.BRANCH_PREFIX }}${{ env.VERSION  }} --no-edit -m "Best-of update: ${{ env.VERSION  }}" -m "To finish this update: Select <code>Merge pull request</code> below and <code>Confirm merge</code>." || true
-          rm bin/hub
+          gh pr create --base ${{ env.DEFAULT_BRANCH }} --head ${{ env.BRANCH_PREFIX }}${{ env.VERSION  }} --title "Best-of update: ${{ env.VERSION  }}" --body "To finish this update: Select <code>Merge pull request</code> below and <code>Confirm merge</code>." || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
