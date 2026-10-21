@@ -4,17 +4,14 @@
 
 **Which pretrained machine-learned interatomic potential should you use, can you use it, and how do you load it?**
 
-42 foundation models from 23 families with benchmark scores, the data they learned from, force type, weight license and a working ASE snippet for each, on one page. The tables and figures are rebuilt every week from [Matbench Discovery](https://matbench-discovery.materialsproject.org).
+42 foundation models from 23 families with benchmark scores, the data they learned from, force type, weight license and a working ASE snippet for each, on one page. The tables and the figure are rebuilt every week from [Matbench Discovery](https://matbench-discovery.materialsproject.org).
 
 [![update](https://github.com/NabKh/foundation-mlips/actions/workflows/update.yml/badge.svg)](https://github.com/NabKh/foundation-mlips/actions/workflows/update.yml)
 ![models](https://img.shields.io/badge/models-42-blue)
 ![updated](https://img.shields.io/badge/updated-2026--10--21-informational)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NabKh/foundation-mlips/blob/main/LICENSE)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/pareto-dark.svg">
-  <img src="figures/pareto.svg" alt="F1 versus thermal conductivity error for each model" width="100%">
-</picture>
+<img src="figures/hero.svg" alt="F1, phonon error and structure RMSD of every model, ranked by F1" width="100%">
 
 **Contents:** [Choosing a model](#choosing-a-model) · [Leaderboard](#leaderboard) · [Trends](#trends) · [How to load each model](#how-to-load-each-model) · [Beyond PBE and bulk crystals](#beyond-pbe-and-bulk-crystals) · [Pitfalls](#pitfalls) · [Data sources](#data-sources-and-credit)
 
@@ -109,24 +106,9 @@ Where a model's own repository disagrees with the license Matbench Discovery lis
 
 ## Trends
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/timeline-dark.svg">
-  <img src="figures/timeline.svg" alt="F1 of each model against its release date" width="100%">
-</picture>
-
 Most of the gain since 2024 comes from training data. Every model trained only on MPtrj (1.58 M structures) scores F1 below 0.85. Models that add OMat24 and sAlex, much larger sets with many off-equilibrium structures, score 0.81 to 0.91 and fill the top ten.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/size-dark.svg">
-  <img src="figures/size.svg" alt="F1 against number of parameters" width="100%">
-</picture>
-
-Among the models trained on MPtrj + OMat24 + sAlex, every one above 10 M parameters scores F1 0.86 to 0.91, whether it has 10 M (MatRIS) or 730 M (PET-OAM-XL) parameters. The colours, which mark the training data, separate more cleanly than the sizes do.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="figures/datasets-dark.svg">
-  <img src="figures/datasets.svg" alt="Size and level of theory of each training set" width="100%">
-</picture>
+Among the models trained on MPtrj + OMat24 + sAlex, every one above 10 M parameters scores F1 0.86 to 0.91, whether it has 10 M (MatRIS) or 730 M (PET-OAM-XL) parameters: the training data matter more than the size.
 
 Almost every training set is PBE or PBE+U, as recorded in Matbench Discovery's dataset list.
 

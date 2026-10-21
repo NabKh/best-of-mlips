@@ -22,11 +22,8 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
-import matplotlib.ticker
 import yaml
-from adjustText import adjust_text
 
 ROOT = Path(__file__).resolve().parents[1]
 MBD_URL = "https://github.com/janosh/matbench-discovery"
@@ -44,12 +41,6 @@ LICENSE_CLASSES = {
 }
 MP_FAMILY = {"MPtrj", "MPF", "MP 2022", "MP Graphs", "MDR-MP PBE ω_q"}
 ALEX_FAMILY = {"Alex", "sAlex", "OMat24"}
-GROUPS = {
-    "mp": ("MPtrj only", "#0072B2"),
-    "alex": ("MPtrj + Alexandria / OMat24", "#D55E00"),
-    "other": ("other or in-house data", "#009E73"),
-}
-MARKERS = {"permissive": "o", "copyleft": "s", "non-commercial": "X", "custom": "D"}
 
 
 def license_class(name):
@@ -169,197 +160,124 @@ def fetch_stars(models, previous):
 # ---------------------------------------------------------------- figures
 
 
-def style(dark):
-    fg, grid = ("#c9d1d9", "#30363d") if dark else ("#24292f", "#d0d7de")
-    plt.rcParams.update(
-        {
-            "font.family": "DejaVu Sans",
-            "font.size": 10,
-            "text.color": fg,
-            "axes.labelcolor": fg,
-            "axes.edgecolor": grid,
-            "xtick.color": fg,
-            "ytick.color": fg,
-            "axes.grid": True,
-            "grid.color": grid,
-            "grid.linewidth": 0.6,
-            "axes.spines.top": False,
-            "axes.spines.right": False,
-            "figure.facecolor": "none",
-            "axes.facecolor": "none",
-            "savefig.facecolor": "none",
-            "legend.frameon": False,
-            "svg.fonttype": "none",
-            "svg.hashsalt": "foundation-mlips",
-        }
-    )
-    return fg
+FONTS = ["Arial", "Liberation Sans", "DejaVu Sans"]  # first one installed wins; Liberation Sans has Arial metrics
+GROUP_STYLE = {
+    "mp": ("#2F6FB3", "MPtrj only"),
+    "alex": ("#E0662A", "MPtrj + Alexandria and/or OMat24"),
+    "other": ("#1A9E77", "other training sets"),
+}
+INK, MUTED, GRID, BAND = "#1D2330", "#6B7280", "#E5E7EB", "#F5F6F8"
+PANELS = [  # key, title, subtitle, x range, ticks
+    ("F1", "F1", "stable-crystal classification · higher is better", (0.55, 0.935), [0.6, 0.7, 0.8, 0.9]),
+    (
+        "kappa_SRME",
+        "κ$_\\mathbf{SRME}$",
+        "phonon thermal-conductivity error · lower is better",
+        (0, 2.0),
+        [0, 0.5, 1, 1.5, 2],
+    ),
+    ("RMSD", "RMSD", "relaxed vs. DFT structure · lower is better", (0.05, 0.12), [0.06, 0.08, 0.10, 0.12]),
+]
 
 
-def legend_handles(fg, groups=True, licenses=True):
+def fig_hero(models, commit):
+    """Every model ranked by F1, with its three Matbench Discovery metrics side by side."""
+    from matplotlib import font_manager
     from matplotlib.lines import Line2D
 
-    handles = []
-    if groups:
-        handles += [
-            Line2D([], [], ls="", marker="o", color=c, label=label, markersize=7) for label, c in GROUPS.values()
-        ]
-    if licenses:
-        handles += [
-            Line2D([], [], ls="", marker=MARKERS[k], mfc="none", mec=fg, label=f"weights: {k}", markersize=7)
-            for k in LICENSE_CLASSES
-        ]
-    return handles
-
-
-def scatter(ax, models, x, y):
-    for m in models:
-        ax.scatter(
-            m[x] if x != "date" else dt.date.fromisoformat(m["date"]),
-            m[y],
-            s=55,
-            marker=MARKERS[m["license_class"]],
-            color=GROUPS[m["data_group"]][1],
-            edgecolor="white",
-            linewidth=0.6,
-            alpha=0.9,
-            zorder=3,
-        )
-
-
-def fig_pareto(models, dark):
-    fg = style(dark)
-    pts = [m for m in models if m["F1"] is not None and m["kappa_SRME"] is not None]
-    fig, ax = plt.subplots(figsize=(9, 6))
-    scatter(ax, pts, "kappa_SRME", "F1")
-    front, best = [], -1
-    for m in sorted(pts, key=lambda m: m["kappa_SRME"]):
-        if m["F1"] > best:
-            front.append(m)
-            best = m["F1"]
-    ax.plot([m["kappa_SRME"] for m in front], [m["F1"] for m in front], color=fg, lw=1, ls="--", zorder=2)
-    family_best = {
-        max((m for m in pts if m["family"] == f), key=lambda m: m["F1"])["key"] for f in {m["family"] for m in pts}
-    }
-    crowded = {m["key"] for m in pts if m["F1"] > 0.88 and m["kappa_SRME"] < 0.25}  # leaderboard top; see table
-    labels = {m["key"] for m in front} | (family_best - crowded)
-    texts = [ax.text(m["kappa_SRME"], m["F1"], m["name"], fontsize=7.5, color=fg) for m in pts if m["key"] in labels]
-    adjust_text(texts, ax=ax, arrowprops={"arrowstyle": "-", "color": fg, "lw": 0.4})
-    ax.set_xlabel("κ$_\\mathrm{SRME}$: thermal-conductivity error from phonons   (lower is better →)")
-    ax.set_ylabel("F1: finds stable crystals   (higher is better ↑)")
-    ax.set_xscale("log")
-    ax.xaxis.set_major_formatter(matplotlib.ticker.FormatStrFormatter("%g"))
-    ax.set_xticks([0.05, 0.1, 0.2, 0.5, 1, 2])
-    ax.invert_xaxis()
-    ax.legend(handles=legend_handles(fg), loc="lower right", fontsize=8)
-    ax.set_title(
-        "Stability screening vs. phonons; dashed line = best trade-off, unlabelled top-right cluster in the table",
-        loc="left",
-        fontsize=10,
+    installed = {f.name for f in font_manager.fontManager.ttflist}
+    font = next(f for f in FONTS if f in installed)
+    plt.rcParams.update(
+        {
+            "font.family": font,
+            "mathtext.fontset": "custom",
+            "mathtext.rm": font,
+            "mathtext.it": f"{font}:italic",
+            "mathtext.bf": f"{font}:bold",
+            "svg.fonttype": "path",
+            "svg.hashsalt": "foundation-mlips",
+            "xtick.color": MUTED,
+            "ytick.color": INK,
+            "xtick.labelsize": 9,
+            "ytick.labelsize": 9.5,
+        }
     )
+    models = sorted((m for m in models if m["F1"] is not None), key=lambda m: m["F1"])
+    n = len(models)
+    fig, axes = plt.subplots(
+        1, 3, figsize=(12, 0.27 * n + 2.6), sharey=True, gridspec_kw={"width_ratios": [1.25, 1.1, 1], "wspace": 0.06}
+    )
+    for ax, (key, title, sub, (lo, hi), ticks) in zip(axes, PANELS):
+        best = sorted((m[key] for m in models if m[key] is not None), reverse=key == "F1")[:3]
+        for y, m in enumerate(models):
+            if y % 2:
+                ax.axhspan(y - 0.5, y + 0.5, color=BAND, zorder=0, lw=0)
+            v = m[key]
+            if v is None:
+                ax.text(lo + 0.01 * (hi - lo), y, "not tested", va="center", fontsize=7.5, color=MUTED)
+                continue
+            c = GROUP_STYLE[m["data_group"]][0]
+            ax.plot([lo, v], [y, y], color=c, lw=1.4, alpha=0.35, solid_capstyle="round", zorder=2)
+            ax.scatter(v, y, s=46, zorder=3, color="white" if m["forces"] == "direct" else c, edgecolor=c, lw=1.6)
+            top = v in best
+            ax.text(
+                v + 0.025 * (hi - lo),
+                y,
+                f"{v:.4f}" if key == "RMSD" else f"{v:.3f}",
+                va="center",
+                fontsize=7.5,
+                color=INK if top else MUTED,
+                fontweight="bold" if top else "normal",
+            )
+        ax.set_xlim(lo, hi)
+        ax.set_xticks(ticks)
+        ax.tick_params(length=0)
+        ax.tick_params(axis="x", pad=2)
+        ax.grid(axis="x", color=GRID, lw=0.8, zorder=1)
+        ax.set_axisbelow(True)
+        for s in ax.spines.values():
+            s.set_visible(False)
+        ax.set_title(title, loc="left", fontsize=12.5, fontweight="bold", color=INK, pad=18)
+        ax.text(0, 1.004, sub, transform=ax.transAxes, fontsize=8.5, color=MUTED, va="bottom")
+    axes[0].set_yticks(range(n), [m["name"] for m in models])
+    axes[0].set_ylim(-0.7, n - 0.3)
+
+    handles = [Line2D([], [], marker="o", ls="", ms=7, color=c, label=label) for c, label in GROUP_STYLE.values()]
+    handles.append(
+        Line2D([], [], marker="o", ls="", ms=7, mfc="white", mec=MUTED, mew=1.6, label="hollow: direct forces")
+    )
+    fig.legend(
+        handles=handles,
+        loc="lower center",
+        ncol=4,
+        frameon=False,
+        fontsize=9,
+        bbox_to_anchor=(0.58, 0),
+        handletextpad=0.3,
+    )
+    h = fig.get_figheight()
+    fig.text(0.012, 1 - 0.25 / h, "Foundation MLIPs on Matbench Discovery", fontsize=17, fontweight="bold", color=INK)
+    fig.text(
+        0.012,
+        1 - 0.52 / h,
+        f"{n} models with released weights, ranked by F1. Bold values: top three in each column. "
+        f"Data: Matbench Discovery, commit {commit[:7]}.",
+        fontsize=9.5,
+        color=MUTED,
+    )
+    fig.subplots_adjust(left=0.17, right=0.985, top=1 - 1.45 / h, bottom=0.75 / h)
     return fig
 
 
-def fig_timeline(models, dark):
-    fg = style(dark)
-    pts = sorted((m for m in models if m["F1"] is not None and m["date"]), key=lambda m: m["date"])
-    fig, ax = plt.subplots(figsize=(9, 4.2))
-    scatter(ax, pts, "date", "F1")
-    best, xs, ys = 0, [], []
-    for m in pts:
-        best = max(best, m["F1"])
-        xs.append(dt.date.fromisoformat(m["date"]))
-        ys.append(best)
-    xs.append(TODAY)
-    ys.append(best)
-    ax.step(xs, ys, where="post", color=fg, lw=1, ls="--", zorder=2)
-    best, texts = 0, []
-    for m in pts:
-        if m["F1"] > best + 0.005:
-            best = m["F1"]
-            texts.append(ax.text(dt.date.fromisoformat(m["date"]), m["F1"], m["name"], fontsize=7.5, color=fg))
-    adjust_text(texts, ax=ax, arrowprops={"arrowstyle": "-", "color": fg, "lw": 0.4})
-    ax.xaxis.set_major_locator(mdates.YearLocator())
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-    ax.set_ylabel("F1 (stable-crystal discovery)")
-    ax.legend(handles=legend_handles(fg, licenses=False), loc="lower right", fontsize=8)
-    ax.set_title("Release date vs. accuracy; dashed line = best so far", loc="left", fontsize=10)
-    return fig
-
-
-def fig_size(models, dark):
-    fg = style(dark)
-    pts = [m for m in models if m["F1"] is not None and m["params"]]
-    fig, ax = plt.subplots(figsize=(9, 4.2))
-    scatter(ax, pts, "params", "F1")
-    ax.set_xscale("log")
-    ax.set_xlabel("trainable parameters")
-    ax.set_ylabel("F1")
-    texts = [
-        ax.text(m["params"], m["F1"], m["name"], fontsize=7, color=fg)
-        for m in pts
-        if m["params"] < 2e6 or m["params"] > 1e8
-    ]
-    adjust_text(texts, ax=ax, arrowprops={"arrowstyle": "-", "color": fg, "lw": 0.4})
-    ax.legend(handles=legend_handles(fg, licenses=False), loc="lower right", fontsize=8)
-    ax.set_title("Model size vs. accuracy; colour = training data", loc="left", fontsize=10)
-    return fig
-
-
-def fig_datasets(models, datasets, dark):
-    fg = style(dark)
-    used = {}
-    for m in models:
-        for s in m["training_sets"]:
-            used[s] = used.get(s, 0) + 1
-    names = sorted(used, key=lambda s: (datasets.get(s) or {}).get("n_structures", 0))
-    fig, ax = plt.subplots(figsize=(9, 0.42 * len(names) + 1))
-    sizes = [(datasets.get(s) or {}).get("n_structures", 0) for s in names]
-    ax.barh(names, sizes, color="#56B4E9")
-    for i, s in enumerate(names):
-        ax.text(
-            sizes[i] * 1.15,
-            i,
-            f"{_functional(datasets, s)}  ·  used by {used[s]} model{'s' if used[s] > 1 else ''}",
-            va="center",
-            fontsize=8,
-            color=fg,
-        )
-    ax.set_xscale("log")
-    ax.set_xlim(right=max(sizes) * 40)
-    ax.set_xlabel("DFT structures in the training set")
-    ax.grid(axis="y", visible=False)
-    ax.set_title("What these models learned from, and at which level of theory", loc="left", fontsize=10)
-    return fig
-
-
-def save_figures(models, datasets):
+def save_figures(models, commit):
     out = ROOT / "figures"
     out.mkdir(exist_ok=True)
-    makers = {
-        "pareto": fig_pareto,
-        "timeline": fig_timeline,
-        "size": fig_size,
-        "datasets": lambda m, d: fig_datasets(m, datasets, d),
-    }
-    for name, make in makers.items():
-        for dark in (False, True):
-            fig = make(models, dark)
-            fig.tight_layout()
-            fig.savefig(out / f"{name}{'-dark' if dark else ''}.svg", metadata={"Date": None})
-            plt.close(fig)
+    fig = fig_hero(models, commit)
+    fig.savefig(out / "hero.svg", facecolor="white", metadata={"Date": None})
+    plt.close(fig)
 
 
 # ---------------------------------------------------------------- README
-
-
-def picture(name, alt):
-    return (
-        "<picture>\n"
-        f'  <source media="(prefers-color-scheme: dark)" srcset="figures/{name}-dark.svg">\n'
-        f'  <img src="figures/{name}.svg" alt="{alt}" width="100%">\n'
-        "</picture>"
-    )
 
 
 def fmt_params(n):
@@ -465,13 +383,13 @@ def main(argv=None):
         commit = subprocess.run(
             ["git", "-C", str(mbd), "rev-parse", "HEAD"], capture_output=True, text=True, check=True
         ).stdout.strip()
-        models, datasets = load_models(mbd)
+        models, _ = load_models(mbd)
 
     stars = previous if args.offline else fetch_stars(models, previous)
     families = yaml.safe_load((ROOT / "data" / "families.yaml").read_text())
     beyond = yaml.safe_load((ROOT / "data" / "beyond_pbe.yaml").read_text())
 
-    save_figures(models, datasets)
+    save_figures(models, commit)
     snapshot.write_text(
         json.dumps(
             {"matbench_discovery_commit": commit, "stars": stars, "models": models}, indent=1, ensure_ascii=False
@@ -494,10 +412,8 @@ def main(argv=None):
         "LICENSE_CORRECTIONS": license_corrections(models),
         "SNIPPETS": snippets(families),
         "BEYOND_PBE": beyond_table(beyond),
-        "FIG_PARETO": picture("pareto", "F1 versus thermal conductivity error for each model"),
-        "FIG_TIMELINE": picture("timeline", "F1 of each model against its release date"),
-        "FIG_SIZE": picture("size", "F1 against number of parameters"),
-        "FIG_DATASETS": picture("datasets", "Size and level of theory of each training set"),
+        "FIG_HERO": '<img src="figures/hero.svg" alt="F1, phonon error and structure RMSD of every model, ranked by F1"'
+        ' width="100%">',
     }.items():
         readme = readme.replace("{{" + key + "}}", value)
     leftover = re.findall(r"\{\{[A-Z_]+\}\}", readme)

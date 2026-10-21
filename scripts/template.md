@@ -4,14 +4,14 @@
 
 **Which pretrained machine-learned interatomic potential should you use, can you use it, and how do you load it?**
 
-{{N_MODELS}} foundation models from {{N_FAMILIES}} families with benchmark scores, the data they learned from, force type, weight license and a working ASE snippet for each, on one page. The tables and figures are rebuilt every week from [Matbench Discovery]({{MBD_SITE}}).
+{{N_MODELS}} foundation models from {{N_FAMILIES}} families with benchmark scores, the data they learned from, force type, weight license and a working ASE snippet for each, on one page. The tables and the figure are rebuilt every week from [Matbench Discovery]({{MBD_SITE}}).
 
 [![update](https://github.com/NabKh/foundation-mlips/actions/workflows/update.yml/badge.svg)](https://github.com/NabKh/foundation-mlips/actions/workflows/update.yml)
 ![models](https://img.shields.io/badge/models-{{N_MODELS}}-blue)
 ![updated](https://img.shields.io/badge/updated-{{UPDATED_BADGE}}-informational)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NabKh/foundation-mlips/blob/main/LICENSE)
 
-{{FIG_PARETO}}
+{{FIG_HERO}}
 
 **Contents:** [Choosing a model](#choosing-a-model) · [Leaderboard](#leaderboard) · [Trends](#trends) · [How to load each model](#how-to-load-each-model) · [Beyond PBE and bulk crystals](#beyond-pbe-and-bulk-crystals) · [Pitfalls](#pitfalls) · [Data sources](#data-sources-and-credit)
 
@@ -63,15 +63,9 @@ Where a model's own repository disagrees with the license Matbench Discovery lis
 
 ## Trends
 
-{{FIG_TIMELINE}}
-
 Most of the gain since 2024 comes from training data. Every model trained only on MPtrj (1.58 M structures) scores F1 below 0.85. Models that add OMat24 and sAlex, much larger sets with many off-equilibrium structures, score 0.81 to 0.91 and fill the top ten.
 
-{{FIG_SIZE}}
-
-Among the models trained on MPtrj + OMat24 + sAlex, every one above 10 M parameters scores F1 0.86 to 0.91, whether it has 10 M (MatRIS) or 730 M (PET-OAM-XL) parameters. The colours, which mark the training data, separate more cleanly than the sizes do.
-
-{{FIG_DATASETS}}
+Among the models trained on MPtrj + OMat24 + sAlex, every one above 10 M parameters scores F1 0.86 to 0.91, whether it has 10 M (MatRIS) or 730 M (PET-OAM-XL) parameters: the training data matter more than the size.
 
 Almost every training set is PBE or PBE+U, as recorded in Matbench Discovery's dataset list.
 
