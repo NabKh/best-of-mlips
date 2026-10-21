@@ -1,16 +1,28 @@
 # Contributing
 
-Corrections and additions are welcome. Every fact on the page needs a source that a reader can open.
+Contributions are welcome. The `README.md` is generated from [`projects.yaml`](projects.yaml) by [best-of-generator](https://github.com/best-of-lists/best-of-generator), so do not edit it directly.
 
-- **Benchmark scores, model metadata, training sets.** These come from [Matbench Discovery](https://github.com/janosh/matbench-discovery). Submit new models or fixes there; this page picks them up at the next weekly rebuild.
-- **Loading snippets** live in [`data/families.yaml`](data/families.yaml). Copy the snippet from the model's README or documentation and link that page in `source`. Snippets reconstructed from memory are not accepted.
-- **Models outside the benchmark** live in [`data/beyond_pbe.yaml`](data/beyond_pbe.yaml). Link the paper and the license file.
-- **License corrections** go in [`data/license_overrides.yaml`](data/license_overrides.yaml), with a link to the license file in the model's own repository.
+## Add or update a project
 
-Do not edit `README.md`, `data/models.json` or `figures/`: they are generated. To rebuild locally:
+- Open an issue with the [suggest](https://github.com/NabKh/foundation-mlips/issues/new?template=01_suggest-project.md) or [update](https://github.com/NabKh/foundation-mlips/issues/new?template=02_update-project.md) template, or
+- edit `projects.yaml` and open a pull request. One project per pull request, please.
 
-```bash
-pip install -r requirements.txt
-python scripts/build.py              # clones Matbench Discovery and queries GitHub stars
-python scripts/build.py --offline    # keeps the star counts already in data/models.json
+A project entry looks like this:
+
+```yaml
+  - name: "CHGNet"
+    github_id: "CederGroupHub/chgnet"
+    category: "uip"
+    pypi_id: "chgnet"
+    description: "Charge-informed graph network trained on MPtrj."
+    labels: ["w-bsd", "pbe"]
 ```
+
+`description` is optional; without it the GitHub description is used. The categories and labels are defined at the top of `projects.yaml`.
+
+## Universal potentials
+
+Entries in the `uip` category need two kinds of label:
+
+- the license of the released weights (`w-...`). Link the license file or model card in the pull request. Weights are often licensed differently from the code.
+- the level of theory of the training data (`pbe`, `r2scan`, `pbesol`, `wb97m`, `pbe0-mbd`, `multi-head`).

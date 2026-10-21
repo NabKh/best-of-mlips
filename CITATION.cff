@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this guide, please cite it and the benchmark it is built on."
-title: "Foundation MLIPs: a practical guide"
+message: "If you use this list, please cite it as below."
+title: "Foundation MLIPs"
 authors:
   - family-names: Khossossi
     given-names: Nabil
@@ -11,12 +11,3 @@ keywords:
   - foundation models
   - materials science
   - atomistic simulation
-references:
-  - type: article
-    title: "A framework to evaluate machine learning crystal stability predictions"
-    authors:
-      - family-names: Riebesell
-        given-names: Janosh
-    journal: "Nature Machine Intelligence"
-    year: 2025
-    doi: 10.1038/s42256-025-01055-1
