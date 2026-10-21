@@ -1,0 +1,8 @@
+# Weight licenses that differ from what Matbench Discovery lists, with the file that says so.
+# Keys are Matbench Discovery model_key values.
+equflash-29m-oam: &equflash
+  license: CC-BY-NC-SA-4.0
+  url: https://github.com/SamsungDS/GGNN/blob/main/LICENSE.md
+  note: Matbench Discovery lists CC-BY-4.0; the repository LICENSE.md says CC BY-NC-SA 4.0.
+  checked: 2026-10-21
+equflashv2-45m-oam: *equflash
