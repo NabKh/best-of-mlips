@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this list, please cite it as below."
-title: "Foundation MLIPs"
+title: "Best of MLIPs"
 authors:
   - family-names: Khossossi
     given-names: Nabil
-repository-code: "https://github.com/NabKh/foundation-mlips"
-license: MIT
+repository-code: "https://github.com/NabKh/best-of-mlips"
+license: CC-BY-SA-4.0
 keywords:
   - machine-learned interatomic potentials
   - foundation models

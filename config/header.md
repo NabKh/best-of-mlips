@@ -1,6 +1,6 @@
 <!-- markdownlint-disable -->
 <h1 align="center">
-    Foundation MLIPs
+    Best of MLIPs
     <br>
 </h1>
 
@@ -14,7 +14,7 @@
     <a href="#contribution" title="Contributions are welcome"><img src="https://img.shields.io/badge/contributions-welcome-green.svg"></a>
 </p>
 
-This list contains {project_count} open-source projects with a total of {stars_count} stars. Projects are ranked by the [project-quality score](https://github.com/best-of-lists/best-of-generator#project-quality-score) of best-of-generator, computed from GitHub and package-manager metadata. To add or update a project, open an [issue](https://github.com/NabKh/foundation-mlips/issues/new/choose), submit a [pull request](https://github.com/NabKh/foundation-mlips/pulls), or edit [projects.yaml](https://github.com/NabKh/foundation-mlips/edit/main/projects.yaml) directly.
+This list contains {project_count} open-source projects with a total of {stars_count} stars. Projects are ranked by the [project-quality score](https://github.com/best-of-lists/best-of-generator#project-quality-score) of best-of-generator, computed from GitHub and package-manager metadata. To add or update a project, open an [issue](https://github.com/NabKh/best-of-mlips/issues/new/choose), submit a [pull request](https://github.com/NabKh/best-of-mlips/pulls), or edit [projects.yaml](https://github.com/NabKh/best-of-mlips/edit/main/projects.yaml) directly.
 
 Universal potentials carry two kinds of labels: the license of the released weights, which is often not the license of the code, and the level of theory of the training data. Models trained on different functionals are not interchangeable without refitting or correction.
 

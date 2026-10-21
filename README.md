@@ -1,6 +1,6 @@
 <!-- markdownlint-disable -->
 <h1 align="center">
-    Foundation MLIPs
+    Best of MLIPs
     <br>
 </h1>
 
@@ -14,7 +14,7 @@
     <a href="#contribution" title="Contributions are welcome"><img src="https://img.shields.io/badge/contributions-welcome-green.svg"></a>
 </p>
 
-This list contains 80 open-source projects with a total of 20K stars. Projects are ranked by the [project-quality score](https://github.com/best-of-lists/best-of-generator#project-quality-score) of best-of-generator, computed from GitHub and package-manager metadata. To add or update a project, open an [issue](https://github.com/NabKh/foundation-mlips/issues/new/choose), submit a [pull request](https://github.com/NabKh/foundation-mlips/pulls), or edit [projects.yaml](https://github.com/NabKh/foundation-mlips/edit/main/projects.yaml) directly.
+This list contains 80 open-source projects with a total of 20K stars. Projects are ranked by the [project-quality score](https://github.com/best-of-lists/best-of-generator#project-quality-score) of best-of-generator, computed from GitHub and package-manager metadata. To add or update a project, open an [issue](https://github.com/NabKh/best-of-mlips/issues/new/choose), submit a [pull request](https://github.com/NabKh/best-of-mlips/pulls), or edit [projects.yaml](https://github.com/NabKh/best-of-mlips/edit/main/projects.yaml) directly.
 
 Universal potentials carry two kinds of labels: the license of the released weights, which is often not the license of the code, and the level of theory of the training data. Models trained on different functionals are not interchangeable without refitting or correction.
 
@@ -784,13 +784,13 @@ _Leaderboards and test suites for machine-learned potentials._
 
 Contributions are welcome. To add or update a project, either:
 
-- open an issue from the [issue page](https://github.com/NabKh/foundation-mlips/issues/new/choose) and fill in the requested information, or
-- edit [projects.yaml](https://github.com/NabKh/foundation-mlips/blob/main/projects.yaml) and submit a pull request. This can be done directly in the [GitHub UI](https://github.com/NabKh/foundation-mlips/edit/main/projects.yaml).
+- open an issue from the [issue page](https://github.com/NabKh/best-of-mlips/issues/new/choose) and fill in the requested information, or
+- edit [projects.yaml](https://github.com/NabKh/best-of-mlips/blob/main/projects.yaml) and submit a pull request. This can be done directly in the [GitHub UI](https://github.com/NabKh/best-of-mlips/edit/main/projects.yaml).
 
-For weight licenses, link the file or model card that states the license. See the [contribution guidelines](https://github.com/NabKh/foundation-mlips/blob/main/CONTRIBUTING.md) for details.
+For weight licenses, link the file or model card that states the license. See the [contribution guidelines](https://github.com/NabKh/best-of-mlips/blob/main/CONTRIBUTING.md) for details.
 
 The list is built with [best-of-generator](https://github.com/best-of-lists/best-of-generator). Many entries were first collected in [best-of-atomistic-machine-learning](https://github.com/JuDFTteam/best-of-atomistic-machine-learning); weight licenses and checkpoint names for universal potentials were cross-checked against [Matbench Discovery](https://github.com/janosh/matbench-discovery) and the model repositories.
 
 ## License
 
-[MIT](LICENSE)
+[![CC BY-SA 4.0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by-sa.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

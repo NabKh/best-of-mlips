@@ -4,7 +4,7 @@ Contributions are welcome. The `README.md` is generated from [`projects.yaml`](p
 
 ## Add or update a project
 
-- Open an issue with the [suggest](https://github.com/NabKh/foundation-mlips/issues/new?template=01_suggest-project.md) or [update](https://github.com/NabKh/foundation-mlips/issues/new?template=02_update-project.md) template, or
+- Open an issue with the [suggest](https://github.com/NabKh/best-of-mlips/issues/new?template=01_suggest-project.md) or [update](https://github.com/NabKh/best-of-mlips/issues/new?template=02_update-project.md) template, or
 - edit `projects.yaml` and open a pull request. One project per pull request, please.
 
 A project entry looks like this:
