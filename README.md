@@ -471,7 +471,7 @@ _MD engines, plugins and calculators that run machine-learned potentials._
 </details>
 <details><summary><b><a href="https://github.com/brucefan1983/GPUMD">GPUMD</a></b> (🥈23 ·  ⭐ 860) - Graphics Processing Units Molecular Dynamics. <code><a href="https://github.com/brucefan1983/GPUMD/blob/HEAD/LICENSES">Custom</a></code></summary>
 
-- [GitHub](https://github.com/brucefan1983/GPUMD) (👨‍💻 70 · 🔀 210 · 📋 290 - 4% open · ⏱️ 21.10.2026):
+- [GitHub](https://github.com/brucefan1983/GPUMD) (👨‍💻 70 · 🔀 210 · 📋 290 - 5% open · ⏱️ 21.10.2026):
 
 	```
 	git clone https://github.com/brucefan1983/GPUMD
