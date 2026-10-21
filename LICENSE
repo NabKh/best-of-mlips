@@ -19,11 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Benchmark metrics, model metadata and dataset records in data/models.json and
-the generated tables and figures are derived from Matbench Discovery
-(https://github.com/janosh/matbench-discovery), Copyright (c) 2022 Janosh
-Riebesell, MIT License. The model weights listed here are not distributed with
-this repository and keep their own licenses.
