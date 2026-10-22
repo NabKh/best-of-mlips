@@ -66,7 +66,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 </details>
 <details><summary><b><a href="https://github.com/facebookresearch/fairchem">fairchem</a></b> (🥇27 ·  ⭐ 2.3K) - eqV2, eSEN and UMA models trained on OMat24, OMol25, OC20 and related FAIR datasets. UMA weights are gated on Hugging.. <code><a href="http://bit.ly/34MBwT8">MIT</a></code> <code>weights: custom (Meta)</code> <code>PBE(+U)</code> <code>ωB97M</code> <code>multi-head</code></summary>
 
-- [GitHub](https://github.com/facebookresearch/fairchem) (👨‍💻 74 · 🔀 510 · 📋 620 - 1% open · ⏱️ 15.10.2026):
+- [GitHub](https://github.com/facebookresearch/fairchem) (👨‍💻 75 · 🔀 500 · 📋 620 - 2% open · ⏱️ 22.10.2026):
 
 	```
 	git clone https://github.com/facebookresearch/fairchem
@@ -102,7 +102,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 </details>
 <details><summary><b><a href="https://github.com/orbital-materials/orb-models">Orb</a></b> (🥈22 ·  ⭐ 620) - ORB v2 and v3 models trained on MPtrj, Alexandria and OMat24. <code><a href="http://bit.ly/3nYMfla">Apache-2</a></code> <code>weights: Apache-2.0</code> <code>PBE(+U)</code></summary>
 
-- [GitHub](https://github.com/orbital-materials/orb-models) (👨‍💻 17 · 🔀 89 · 📦 48 · 📋 82 - 10% open · ⏱️ 26.09.2026):
+- [GitHub](https://github.com/orbital-materials/orb-models) (👨‍💻 17 · 🔀 89 · 📦 49 · 📋 82 - 10% open · ⏱️ 26.09.2026):
 
 	```
 	git clone https://github.com/orbital-materials/orb-models
@@ -112,7 +112,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 	pip install orb-models
 	```
 </details>
-<details><summary><b><a href="https://github.com/microsoft/mattersim">MatterSim</a></b> (🥈22 ·  ⭐ 600) - MatterSim: A deep learning atomistic model across elements, temperatures and pressures. <code><a href="http://bit.ly/34MBwT8">MIT</a></code> <code>weights: MIT</code> <code>PBE(+U)</code></summary>
+<details><summary><b><a href="https://github.com/microsoft/mattersim">MatterSim</a></b> (🥈22 ·  ⭐ 610) - MatterSim: A deep learning atomistic model across elements, temperatures and pressures. <code><a href="http://bit.ly/34MBwT8">MIT</a></code> <code>weights: MIT</code> <code>PBE(+U)</code></summary>
 
 - [GitHub](https://github.com/microsoft/mattersim) (👨‍💻 27 · 🔀 97 · 📥 46 · 📋 48 - 10% open · ⏱️ 21.10.2026):
 
@@ -126,7 +126,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 </details>
 <details><summary><b><a href="https://github.com/lab-cosmo/upet">UPET</a></b> (🥈22 ·  ⭐ 240) - PET-MAD (PBEsol in v1.0, r2SCAN from v1.5) and PET-OAM-XL. <code><a href="http://bit.ly/3aKzpTv">BSD-3</a></code> <code>weights: BSD-3</code> <code>PBE(+U)</code> <code>PBEsol</code> <code>r2SCAN</code></summary>
 
-- [GitHub](https://github.com/lab-cosmo/upet) (👨‍💻 19 · 🔀 25 · 📥 120 · 📦 15 · 📋 25 - 4% open · ⏱️ 02.10.2026):
+- [GitHub](https://github.com/lab-cosmo/upet) (👨‍💻 19 · 🔀 26 · 📥 120 · 📦 15 · 📋 25 - 4% open · ⏱️ 02.10.2026):
 
 	```
 	git clone https://github.com/lab-cosmo/upet
@@ -196,7 +196,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 	pip install mace-torch
 	```
 </details>
-<details><summary><b><a href="https://github.com/xvzemin/tace">TACE</a></b> (🥉17 ·  ⭐ 73) - Tensor Atomic/Edge Cluster Expansion. <code><a href="http://bit.ly/34MBwT8">MIT</a></code> <code>weights: CC-BY-4.0</code> <code>PBE(+U)</code></summary>
+<details><summary><b><a href="https://github.com/xvzemin/tace">TACE</a></b> (🥉17 ·  ⭐ 74) - Tensor Atomic/Edge Cluster Expansion. <code><a href="http://bit.ly/34MBwT8">MIT</a></code> <code>weights: CC-BY-4.0</code> <code>PBE(+U)</code></summary>
 
 - [GitHub](https://github.com/xvzemin/tace) (🔀 7 · ⏱️ 20.10.2026):
 
@@ -292,7 +292,7 @@ _Pretrained interatomic potentials meant to be used across most of the periodic 
 	git clone https://github.com/kairosmaterial/prophet
 	```
 </details>
-<details><summary><b><a href="https://github.com/SamsungDS/GGNN">EquFlash</a></b> (🥉3 ·  ⭐ 21 · 🐣) - EquFlash and EquFlashV2. The repository LICENSE.md is CC BY-NC-SA 4.0. <code><a href="https://tldrlegal.com/search?q=CC-BY-NC-SA-4.0">CC-BY-NC-SA-4.0</a></code> <code>weights: CC-BY-NC-SA-4.0</code> <code>PBE(+U)</code></summary>
+<details><summary><b><a href="https://github.com/SamsungDS/GGNN">EquFlash</a></b> (🥉3 ·  ⭐ 22 · 🐣) - EquFlash and EquFlashV2. The repository LICENSE.md is CC BY-NC-SA 4.0. <code><a href="https://tldrlegal.com/search?q=CC-BY-NC-SA-4.0">CC-BY-NC-SA-4.0</a></code> <code>weights: CC-BY-NC-SA-4.0</code> <code>PBE(+U)</code></summary>
 
 - [GitHub](https://github.com/SamsungDS/GGNN) (👨‍💻 2 · 🔀 3 · 📋 2 - 50% open · ⏱️ 03.07.2026):
 
@@ -339,7 +339,7 @@ _Codes for building and training machine-learned interatomic potentials._
 </details>
 <details><summary><b><a href="https://github.com/metatensor/metatrain">metatrain</a></b> (🥈24 ·  ⭐ 82) - Train, fine-tune, and manipulate machine learning models for atomistic systems. <code><a href="http://bit.ly/3aKzpTv">BSD-3</a></code></summary>
 
-- [GitHub](https://github.com/metatensor/metatrain) (👨‍💻 38 · 🔀 39 · 📥 120 · 📦 19 · 📋 310 - 25% open · ⏱️ 21.10.2026):
+- [GitHub](https://github.com/metatensor/metatrain) (👨‍💻 38 · 🔀 40 · 📥 120 · 📦 19 · 📋 310 - 25% open · ⏱️ 22.10.2026):
 
 	```
 	git clone https://github.com/metatensor/metatrain
@@ -434,7 +434,7 @@ _Codes for building and training machine-learned interatomic potentials._
 <details><summary>Show 3 hidden projects...</summary>
 
 - <b><a href="https://github.com/uf3/uf3">UF3</a></b> (🥈16 ·  ⭐ 74 · 💀) - UF3: a python library for generating ultra-fast interatomic potentials. <code><a href="http://bit.ly/3nYMfla">Apache-2</a></code>
-- <b><a href="https://github.com/CompPhysVienna/n2p2">n2p2</a></b> (🥉13 ·  ⭐ 240 · 💀) - n2p2 - A Neural Network Potential Package. <code><a href="http://bit.ly/2M0xdwT">GPL-3.0</a></code>
+- <b><a href="https://github.com/CompPhysVienna/n2p2">n2p2</a></b> (🥉14 ·  ⭐ 240 · 💀) - n2p2 - A Neural Network Potential Package. <code><a href="http://bit.ly/2M0xdwT">GPL-3.0</a></code>
 - <b><a href="https://github.com/MaterSim/PyXtal_FF">PyXtal_FF</a></b> (🥉11 ·  ⭐ 93 · 💀) - Machine Learning Interatomic Potential Predictions. <code>Unlicensed</code>
 </details>
 <br>
@@ -479,7 +479,7 @@ _MD engines, plugins and calculators that run machine-learned potentials._
 </details>
 <details><summary><b><a href="https://github.com/TorchSim/torch-sim">TorchSim</a></b> (🥈23 ·  ⭐ 500) - Torch-native, batchable, atomistic simulations. <code><a href="http://bit.ly/34MBwT8">MIT</a></code></summary>
 
-- [GitHub](https://github.com/TorchSim/torch-sim) (👨‍💻 39 · 🔀 110 · 📋 180 - 10% open · ⏱️ 18.10.2026):
+- [GitHub](https://github.com/TorchSim/torch-sim) (👨‍💻 39 · 🔀 110 · 📋 180 - 10% open · ⏱️ 22.10.2026):
 
 	```
 	git clone https://github.com/TorchSim/torch-sim
@@ -607,7 +607,7 @@ _Workflows that generate training data, fit or fine-tune potentials iteratively.
 </details>
 <details><summary><b><a href="https://github.com/stfc/aiida-mlip">aiida-mlip</a></b> (🥈16 ·  ⭐ 26) - machine learning interatomic potentials aiida plugin. <code><a href="http://bit.ly/3aKzpTv">BSD-3</a></code></summary>
 
-- [GitHub](https://github.com/stfc/aiida-mlip) (👨‍💻 10 · 🔀 14 · 📥 60 · 📦 4 · 📋 160 - 40% open · ⏱️ 02.10.2026):
+- [GitHub](https://github.com/stfc/aiida-mlip) (👨‍💻 10 · 🔀 14 · 📥 61 · 📦 4 · 📋 160 - 40% open · ⏱️ 02.10.2026):
 
 	```
 	git clone https://github.com/stfc/aiida-mlip
@@ -729,7 +729,7 @@ _Leaderboards and test suites for machine-learned potentials._
 </details>
 <details><summary><b><a href="https://github.com/ddmms/ml-peg">ML-PEG</a></b> (🥈18 ·  ⭐ 71) - ML Performance and Extrapolation Guide (reference deployment https://ml-peg.stfc.ac.uk). <code><a href="http://bit.ly/2M0xdwT">GPL-3.0</a></code></summary>
 
-- [GitHub](https://github.com/ddmms/ml-peg) (👨‍💻 43 · 🔀 72 · 📥 68 · 📋 340 - 45% open · ⏱️ 21.10.2026):
+- [GitHub](https://github.com/ddmms/ml-peg) (👨‍💻 44 · 🔀 72 · 📥 68 · 📋 350 - 45% open · ⏱️ 22.10.2026):
 
 	```
 	git clone https://github.com/ddmms/ml-peg
